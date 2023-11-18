@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Registros</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wy4r1Q5frhxC8dSxXg4EUnDI4E2dM6YfB" crossorigin="anonymous">
+    <link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+						aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" th:href="@{/}">Vehículos</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Cerrar
+							sesión</a></li>
+					<li><a th:href="@{/registros}">Registros</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+<div class="container">
+    <h2 class="mt-4">Lista de Registros</h2>
+
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Propietario</th>
+                <th>Fecha de Llegada</th>
+                <th>Fecha de Salida</th>
+                <th>Placa</th>
+                <th>Tipo de Vehículo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="registro : ${registros}">
+                <td th:text="${registro.id}"></td>
+                <td th:text="${registro.propietario}"></td>
+                <td th:text="${registro.fechaLlegada}"></td>
+                <td th:text="${registro.fechaSalida}"></td>
+                <td th:text="${registro.placa}"></td>
+                <td th:text="${registro.tipoVehiculo}"></td>
+                <td>
+                    <a th:href="@{/registros/{id}(id=${registro.id})}" class="btn btn-info btn-sm">Ver</a>
+                    <a th:href="@{/registros/{id}/editar(id=${registro.id})}" class="btn btn-warning btn-sm">Editar</a>
+                    <a th:href="@{/registros/{id}/eliminar(id=${registro.id})}" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/registros/nuevo}" class="new-record-link btn btn-success">Nuevo Registro</a>
+</div>
+
+</body>
+</html>
